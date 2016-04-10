@@ -18,21 +18,47 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         tableView.delegate = self
         tableView.dataSource = self
         
+        //generateTestData()
+        attemptFetch()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if let sections = fetchedResultsController.sections {
+            return sections.count
+        }
         return 0
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let sections = fetchedResultsController.sections {
+            let sectionInfo = sections[section]
+            return sectionInfo.numberOfObjects
+        }
         return 0
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 132
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) as! ItemCell
+        
+        configureCell(cell, indexPath: indexPath)
+        
+        return cell
+    }
+    
+    func configureCell(cell: ItemCell, indexPath: NSIndexPath) {
+        if let item = fetchedResultsController.objectAtIndexPath(indexPath) as? Item {
+            //update data
+            cell.configureCell(item)
+        }
     }
     
     func attemptFetch() {
@@ -87,7 +113,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         case .Update:
             if let indexPath = indexPath {
                 let cell = tableView.cellForRowAtIndexPath(indexPath) as! ItemCell
-                //update cell data
+                configureCell(cell, indexPath: indexPath)
             }
             break
         case .Move:
@@ -100,6 +126,29 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
             }
             break
         }
+    }
+    
+    func generateTestData() {
+        
+        let item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: ad.managedObjectContext) as! Item
+        
+        item.title = "Cool LEGO Set"
+        item.price = 45.99
+        item.details = "This is a super cool Star Wars LEGO set with 1000 pieces"
+        
+        let item2 = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: ad.managedObjectContext) as! Item
+        
+        item2.title = "Blah"
+        item2.price = 99.99
+        item2.details = "doifsdf sdfoij"
+        
+        let item3 = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: ad.managedObjectContext) as! Item
+        
+        item3.title = "Audi"
+        item3.price = 108000
+        item3.details = "such car"
+        
+        ad.saveContext()
     }
 }
 
