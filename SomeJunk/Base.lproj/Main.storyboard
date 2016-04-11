@@ -254,6 +254,7 @@
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Srm-AA-lu6">
                                 <rect key="frame" x="20" y="269" width="560" height="249"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="NvD-Tg-f9m"/>
                                 </constraints>
@@ -279,6 +280,9 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="savePressed:" destination="YST-7I-BR8" eventType="touchUpInside" id="GYo-U5-Wx7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -312,6 +316,12 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="detailsField" destination="SRa-xH-Nua" id="mYi-CI-hHe"/>
+                        <outlet property="priceField" destination="rGr-9S-I4G" id="Dd0-Vo-Cgz"/>
+                        <outlet property="storePicker" destination="Srm-AA-lu6" id="VQL-Jn-4xi"/>
+                        <outlet property="titleField" destination="Yku-FP-zXs" id="Fz2-hi-zAd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ixI-Yb-CcG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
