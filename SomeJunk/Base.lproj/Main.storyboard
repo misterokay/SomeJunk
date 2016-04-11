@@ -158,7 +158,7 @@
             </objects>
             <point key="canvasLocation" x="1117" y="356"/>
         </scene>
-        <!--Item DetailsVC-->
+        <!--Item-->
         <scene sceneID="5be-Nr-Bvh">
             <objects>
                 <viewController id="YST-7I-BR8" customClass="ItemDetailsVC" customModule="SomeJunk" customModuleProvider="target" sceneMemberID="viewController">
@@ -316,6 +316,14 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="Item" id="f9P-7j-x4b">
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="trash" id="lrs-Op-MGk">
+                            <color key="tintColor" red="1" green="0.24548057500000001" blue="0.22066036780000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="deletePressed:" destination="YST-7I-BR8" id="qrv-bm-w7U"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="detailsField" destination="SRa-xH-Nua" id="mYi-CI-hHe"/>
                         <outlet property="priceField" destination="rGr-9S-I4G" id="Dd0-Vo-Cgz"/>

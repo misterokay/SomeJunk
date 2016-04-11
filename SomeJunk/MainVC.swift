@@ -23,7 +23,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         tableView.delegate = self
         tableView.dataSource = self
         
-        //generateTestData()
         attemptFetch()
     }
     
@@ -128,27 +127,19 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFe
         }
     }
     
-    func generateTestData() {
-        
-        let item = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: ad.managedObjectContext) as! Item
-        
-        item.title = "Cool LEGO Set"
-        item.price = 45.99
-        item.details = "This is a super cool Star Wars LEGO set with 1000 pieces"
-        
-        let item2 = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: ad.managedObjectContext) as! Item
-        
-        item2.title = "Blah"
-        item2.price = 99.99
-        item2.details = "doifsdf sdfoij"
-        
-        let item3 = NSEntityDescription.insertNewObjectForEntityForName("Item", inManagedObjectContext: ad.managedObjectContext) as! Item
-        
-        item3.title = "Audi"
-        item3.price = 108000
-        item3.details = "such car"
-        
-        ad.saveContext()
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let objs = fetchedResultsController.fetchedObjects where objs.count > 0 {
+            let item = objs[indexPath.row] as! Item
+            
+            performSegueWithIdentifier("ItemDetailsVC", sender: item)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ItemDetailsVC" {
+            let vc = segue.destinationViewController as! ItemDetailsVC
+            vc.itemToEdit = sender as? Item
+        }
     }
 }
 
